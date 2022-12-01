@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row align-items-center">
+        <div id="beam" class="col-xl-6">
+            <form method="POST" id="post-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Kategoria zagrożenia ludzi</label>
+                    <select class="form-control" id="valueZL">
+                        <option value="1">ZL I</option>
+                        <option value="2">ZL II</option>
+                        <option value="3">ZL III</option>
+                        <option value="4">ZL IV</option>
+                        <option value="5">ZL V</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Wysokość budynku [m]</label>
+                    <input type="number" class="form-control" id="valueH" placeholder="wpisz wysokość budynku w metrach"
+                           min="0" max="120" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Ilość kondygnacji nadziemnych</label>
+                    <input type="number" class="form-control" id='valueCount' placeholder="wpisz ilość kondygnacji"
+                           min="1" step="1">
+                </div>
+                <div class="form-group">
+                    <label>Poziom stropu nad pierwszą kondygnacją [m]</label>
+                    <input type="number" class="form-control" id='valueFirst'
+                           placeholder="wpisz poziom stropu nad pierwszą kondygnacją" min="0" step="0.01">
+                </div>
+                <br>
+                <button type="submit" id="submit" class="btn btn-success w-100">Sprawdź</button>
+            </form>
+        </div><br>
+        <div class="form-group bg-dark rounded border border-success col-xl-6 text-center justify-content-center">
+            <label id="result" class="h3">Wynik</label>
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link h5 text-success" id="A-tab" data-bs-toggle="tab" data-bs-target="#A"
+                            type="button" role="tab" aria-controls="A" aria-selected="true">A
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link h5 text-success" id="B-tab" data-bs-toggle="tab" data-bs-target="#B"
+                            type="button" role="tab" aria-controls="B" aria-selected="false">B
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link h5 text-success" id="C-tab" data-bs-toggle="tab" data-bs-target="#C"
+                            type="button" role="tab" aria-controls="C" aria-selected="false">C
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link h5 text-success" id="D-tab" data-bs-toggle="tab" data-bs-target="#D"
+                            type="button" role="tab" aria-controls="D" aria-selected="false">D
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link h5 text-success" id="E-tab" data-bs-toggle="tab" data-bs-target="#E"
+                            type="button" role="tab" aria-controls="E" aria-selected="false">E
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active h5 text-success" id="ZL-tab" data-bs-toggle="tab" data-bs-target="#ZL"
+                            type="button" role="tab" aria-controls="ZL" aria-selected="false">ZL
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link h5 text-success" id="DESCRIPTION-tab" data-bs-toggle="tab" data-bs-target="#DESCRIPTION"
+                            type="button" role="tab" aria-controls="DESCRIPTION" aria-selected="false">OPIS
+                    </button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade " id="A" role="tabpanel" aria-labelledby="A-tab">
+                    <h4>Kategoria budynku: <strong>A</strong></h4>
+                    <p>Główna konstrukcja nośna: <strong>R 240</strong></p>
+                    <p>Konstrukcja dachu: <strong>R 30</strong></p>
+                    <p>Strop ((1)*): <strong>REI 120</strong></p>
+                    <p>Ściana zewnętrzna(1., 2.): <strong>EI 120 (OI)</strong></p>
+                    <p>Ściana wewnętrzna(1.): <strong>EI 60 (4.)</strong></p>
+                    <p>Przekrycie dachu(3.): <strong>RE 30</strong></p><br>
+                    <p>Klasa odporności ogniowej elementów budynku (5., (*))</p>
+                </div>
+                <div class="tab-pane fade" id="B" role="tabpanel" aria-labelledby="B-tab">
+                    <h4>Kategoria budynku: <strong>B</strong></h4>
+                    <p>Główna konstrukcja nośna: <strong>R 120</strong></p>
+                    <p>Konstrukcja dachu: <strong>R 30</strong></p>
+                    <p>Strop ((1)*): <strong>REI 60</strong></p>
+                    <p>Ściana zewnętrzna(1., 2.): <strong>EI 60 (OI)</strong></p>
+                    <p>Ściana wewnętrzna(1.): <strong>EI 30 (4.)</strong></p>
+                    <p>Przekrycie dachu(3.): <strong>RE 30</strong></p><br>
+                    <p>Klasa odporności ogniowej elementów budynku (5., (*))</p>
+                </div>
+                <div class="tab-pane fade" id="C" role="tabpanel" aria-labelledby="C-tab">
+                    <h4>Kategoria budynku: <strong>C</strong></h4>
+                    <p>Główna konstrukcja nośna: <strong>R 60</strong></p>
+                    <p>Konstrukcja dachu: <strong>R 15</strong></p>
+                    <p>Strop ((1)*): <strong>REI 60</strong></p>
+                    <p>Ściana zewnętrzna(1., 2.): <strong>EI 30 (OI)</strong></p>
+                    <p>Ściana wewnętrzna(1.): <strong>EI 15 (4.)</strong></p>
+                    <p>Przekrycie dachu(3.): <strong>RE 15</strong></p><br>
+                    <p>Klasa odporności ogniowej elementów budynku (5., (*))</p>
+                </div>
+                <div class="tab-pane fade" id="D" role="tabpanel" aria-labelledby="D-tab">
+                    <h4>Kategoria budynku: <strong>D</strong></h4>
+                    <p>Główna konstrukcja nośna: <strong>R 30</strong></p>
+                    <p>Konstrukcja dachu: <strong>(-)</strong></p>
+                    <p>Strop ((1)*): <strong>REI 30</strong></p>
+                    <p>Ściana zewnętrzna(1., 2.): <strong>EI 30 (OI)</strong></p>
+                    <p>Ściana wewnętrzna(1.): <strong>(-)</strong></p>
+                    <p>Przekrycie dachu(3.): <strong>(-)</strong></p><br>
+                    <p>Klasa odporności ogniowej elementów budynku (5., (*))</p>
+                </div>
+                <div class="tab-pane fade" id="E" role="tabpanel" aria-labelledby="E-tab">
+                    <h4>Kategoria budynku: <strong>E</strong></h4>
+                    <p>Główna konstrukcja nośna: <strong>(-)</strong></p>
+                    <p>Konstrukcja dachu: <strong>(-)</strong></p>
+                    <p>Strop ((1)*): <strong>(-)</strong></p>
+                    <p>Ściana zewnętrzna(1., 2.): <strong>(-)</strong></p>
+                    <p>Ściana wewnętrzna(1.): <strong>(-)</strong></p>
+                    <p>Przekrycie dachu(3.): <strong>(-)</strong></p><br>
+                    <p>Klasa odporności ogniowej elementów budynku (5., (*))</p>
+                </div>
+                <div class="tab-pane fade show active" id="ZL" role="tabpanel" aria-labelledby="ZL-tab">
+                    <p><strong>§ 209.</strong> 2. Budynki oraz części budynków, stanowiące odrębne strefy pożarowe,
+                        określane jako ZL,
+                        zalicza się do jednej lub do więcej niż jedna spośród następujących kategorii zagrożenia ludzi:
+                    </p>
+                    <p><strong>ZL I</strong> – zawierające pomieszczenia przeznaczone do jednoczesnego przebywania ponad
+                        50 osób niebędących ich stałymi użytkownikami, a nieprzeznaczone przede wszystkim do użytku
+                        ludzi o ograniczonej zdolności poruszania się</p>
+                    <p><strong>ZL II</strong> – przeznaczone przede wszystkim do użytku ludzi o ograniczonej zdolności
+                        poruszania się, takie jak szpitale, żłobki, przedszkola, domy dla osób starszych</p>
+                    <p><strong>ZL III</strong> – użyteczności publicznej niekwalifikowane do kategorii ZL I i ZL II</p>
+                    <p><strong>ZL IV</strong> – mieszkalne</p>
+                    <p><strong>ZL V</strong> – zamieszkania zbiorowego niekwalifikowane do kategorii ZL I i ZL II</p>
+                </div>
+                <div class="tab-pane fade" id="DESCRIPTION" role="tabpanel" aria-labelledby="DESCRIPTION-tab">
+                    <p><strong>R</strong> - nośność ogniowa.</p>
+                    <p><strong>E</strong> - szczelność ogniowa.</p>
+                    <p>
+                        <strond>I</strond>
+                        - izolacyjność ogniowa.
+                    </p>
+                    <p>(-) - nie stawia wymagań.</p>
+                    <p>(*) - Z zastrzeżeniem §219 ust.1</p>
+                    <p>Ognioodporność określana jest w minutach.</p>
+                    <p>1.) Jeżeli przegroda jest częścią głównej konstrukcji nośnej, powinna spełniać także kryteria
+                        nośności ogniowej (R) odpowiednio do wymagań zawartych w kol. 2 i 3 dla danej klasy odporności
+                        pożarowej budynku.</p>
+                    <p>2.) Klasa odporności ogniowej dotyczy pasa międzykondygnacyjnego wraz z połączeniem ze
+                        stropem.</p>
+                    <p>3.) Wymagania nie dotyczą naświetli dachowych, świetlików, lukarn i okien połaciowych (z
+                        zastrzeżeniem § 218), jeśli otwory w połaci dachowej nie zajmują więcej niż 20% jej powierzchni,
+                        nie dotyczą także budynku, w którym nad najwyższą kondygnacją znajduje się strop albo inna
+                        przegroda, spełniająca kryteria określone w stropach.</p>
+                    <p>4.) Dla ścian komór zsypu wymaga się EI 60, a dla drzwi komór zsypu - EI 30.</p>
+                    <p>5.) Klasa odporności ogniowej dotyczy elementów wraz z uszczelnieniami złączy i
+                        dylatacjami.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $('#beam').on('submit', e => {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url "calcBeam:main" %}',
+                data: {
+                    valueZL: $('#valueZL').val(),
+                    valueH: $('#valueH').val(),
+                    valueCount: $('#valueCount').val(),
+                    valueFirst: $('#valueFirst').val(),
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    action: 'post',
+                },
+                dataType: 'json',
+                success: data => {
+                    $('#result').html(data['result']);
+                    $('.nav-item #' + data['category'] + '-tab').tab('show')
+                },
+                error: response => {
+                    $('#result').html("Błąd wprowadzonych wartości, prosze o podanie wszystkich")
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,64 @@
+body {
+    background-color: #1b1b1b;
+    color: white;
+    font-family: Arial, serif;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
+.sidenav {
+    height: calc(100% - 80px);
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    color: #818181;
+    font-size: 25px;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin: 5px 5px 80px 160px;
+    width: calc(100% - 160px);
+    height: calc(100% - 80px);
+    padding: 10px;
+}
+
+footer {
+    background: #111;
+    height: 80px;
+    width: 100%;
+    margin: auto;
+    border-top-right-radius: 25px;
+}
+
+.wybor {
+    cursor: pointer;
+    border: 1px solid lightgrey;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    padding: 7px;
+}
+
+input[type=radio] {
+    cursor: pointer;
+    color: #006b1b;
+}

@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+
+{% block title %}Generacja belki{% endblock %}
+
+{% block content %}
+    <form action="download_dxf_beam" method="post">
+        {% csrf_token %}
+        <div>
+            Nazwa pozycji: <input class="form-control" type="text" name="name" required='required'
+                                  value="Belka B-1-0">
+            Ilość elementów:
+                <input class="form-control" type="number" name="number_of_elements" required='required' value="1"
+                       min="1" max="1000" step="1">
+            Język na rysunku:
+            <select name="language">
+                <option value="pl">Polski</option>
+                <option value="de">Niemiecki</option>
+                <option value="eng">Angielski</option>
+            </select>
+            <hr>
+            Długość belki:<input class="form-control" type="number" name="beam_span" required='required' value="3000"
+                                 min="300"
+                                 max="15000" step="50"><br>
+            Wysokość belki:<input class="form-control" type="number" name="beam_height" required='required' value="500"
+                                  min="100"
+                                  max="1500" step="50"><br>
+            Szerokość belki:<input class="form-control" type="number" name="beam_width" required='required' value="250"
+                                   min="100" max="1000" step="50"><br>
+            Szerokość lewej podpory:<input class="form-control" type="number" name="width_support_left"
+                                           required='required' value="250"
+                                           min="50" max="1000" step="50"><br>
+            Szerokość prawej podpory:<input class="form-control" type="number" name="width_support_right"
+                                            required='required'
+                                            value="250" min="50" max="1000" step="50">
+            <hr>
+            Srednice głównych prętów:<br>
+            Pręty górne:
+            <div>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_top" value="10">
+                    &#8709;10
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_top" value="12" checked>
+                    &#8709;12
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_top" value="16">
+                    &#8709;16
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_top" value="20">
+                    &#8709;20
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_top" value="24">
+                    &#8709;24
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_top" value="28">
+                    &#8709;28
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_top" value="32">
+                    &#8709;32
+                </label>
+                <label>Ilość sztuk:
+                    <input class="form-control" type="number" name="quantity_main_top" required='required'
+                           value="2" min="2" max="50" step="1">
+                </label>
+                <label>
+                    Klasa stali:
+                    <select name="steel_grade_main_top">
+                        <optgroup label="Klasa A">
+                            <option value="BST500KR">BST500KR</option>
+                            <option value="B500A">B500A</option>
+                            <option value="St500B">St500B</option>
+                            <option value="BST500S(A)">BST500S(A)</option>
+                            <option value="RB500">RB500</option>
+                            <option value="RB500W">RB500W</option>
+                        </optgroup>
+                        <optgroup label="Klasa B">
+                            <option value="BST500S(B)">BST500S(B)</option>
+                            <option value="RB400">RB400</option>
+                            <option value="RB400W">RB400W</option>
+                            <option value="RB500WZ">RB500WZ</option>
+                            <option value="BST500WR">BST500WR</option>
+                            <option value="34GS">34GS</option>
+                        </optgroup>
+                        <optgroup label="Klasa C">
+                            <option value="B500SP" selected>B500SP</option>
+                            <option value="35G2Y">35G2Y</option>
+                            <option value="20G2VY-b">20G2VY-b</option>
+                        </optgroup>
+                    </select>
+                </label>
+
+            </div>
+            Pręty dolne:
+            <div>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_bottom" value="10">
+                    &#8709;10
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_bottom" value="12" checked>
+                    &#8709;12
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_bottom" value="16">
+                    &#8709;16
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_bottom" value="20">
+                    &#8709;20
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_bottom" value="24">
+                    &#8709;24
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_bottom" value="28">
+                    &#8709;28
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_main_bottom" value="32">
+                    &#8709;32
+                </label>
+                <label>Ilość sztuk:
+                    <input class="form-control" type="number" name="quantity_main_bottom" required='required'
+                           value="2" min="2" max="50" step="1">
+                </label>
+                <label>
+                    Klasa stali:
+                    <select name="steel_grade_main_bottom">
+                        <optgroup label="Klasa A">
+                            <option value="BST500KR">BST500KR</option>
+                            <option value="B500A">B500A</option>
+                            <option value="St500B">St500B</option>
+                            <option value="BST500S(A)">BST500S(A)</option>
+                            <option value="RB500">RB500</option>
+                            <option value="RB500W">RB500W</option>
+                        </optgroup>
+                        <optgroup label="Klasa B">
+                            <option value="BST500S(B)">BST500S(B)</option>
+                            <option value="RB400">RB400</option>
+                            <option value="RB400W">RB400W</option>
+                            <option value="RB500WZ">RB500WZ</option>
+                            <option value="BST500WR">BST500WR</option>
+                            <option value="34GS">34GS</option>
+                        </optgroup>
+                        <optgroup label="Klasa C">
+                            <option value="B500SP" selected>B500SP</option>
+                            <option value="35G2Y">35G2Y</option>
+                            <option value="20G2VY-b">20G2VY-b</option>
+                        </optgroup>
+                    </select>
+                </label>
+            </div>
+            Strzemiona:
+            <div>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_stirrup" value="6" checked>
+                    &#8709;6
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_stirrup" value="8">
+                    &#8709;8
+                </label>
+                <label class="wybor">
+                    <input class="form-check-input" type="radio" name="diameter_stirrup" value="10">
+                    &#8709;10
+                </label>
+                <label>
+                    Klasa stali:
+                    <select name="steel_grade_stirrup">
+                        <optgroup label="Klasa A">
+                            <option value="BST500KR">BST500KR</option>
+                            <option value="B500A">B500A</option>
+                            <option value="St500B">St500B</option>
+                            <option value="BST500S(A)">BST500S(A)</option>
+                            <option value="RB500">RB500</option>
+                            <option value="RB500W">RB500W</option>
+                        </optgroup>
+                        <optgroup label="Klasa B">
+                            <option value="BST500S(B)">BST500S(B)</option>
+                            <option value="RB400">RB400</option>
+                            <option value="RB400W">RB400W</option>
+                            <option value="RB500WZ">RB500WZ</option>
+                            <option value="BST500WR">BST500WR</option>
+                            <option value="34GS">34GS</option>
+                        </optgroup>
+                        <optgroup label="Klasa C">
+                            <option value="B500SP" selected>B500SP</option>
+                            <option value="35G2Y">35G2Y</option>
+                            <option value="20G2VY-b">20G2VY-b</option>
+                        </optgroup>
+                    </select>
+                </label>
+            </div>
+            <hr>
+            Otulina górna:
+            <input class="form-control" type="number" name="cover_top" required='required' value="25" min="5" max="100"
+                   step="5">
+            Otulina Dolna:
+            <input class="form-control" type="number" name="cover_bottom" required='required' value="25" min="5"
+                   max="100"
+                   step="5">
+            Otulina boczna lewa:
+            <input class="form-control" type="number" name="cover_view_left" required='required' value="25" min="5"
+                   max="100"
+                   step="5">
+            Otulina boczna prawa:
+            <input class="form-control" type="number" name="cover_view_right" required='required' value="25" min="5"
+                   max="100"
+                   step="5">
+            Otulina boczna lewa przekrój:
+            <input class="form-control" type="number" name="cover_left" required='required' value="25" min="5" max="100"
+                   step="5">
+            Otulina boczna prawa przekrój:
+            <input class="form-control" type="number" name="cover_right" required='required' value="25" min="5"
+                   max="100"
+                   step="5">
+            <hr>
+            Zasięg strzemion pierwszego rzędu z lewej:
+            <input class="form-control" type="number" name="first_row_stirrup_range_left" required='required'
+                   value="1000" min="0" max="15000"
+                   step="5">
+            Zasięg strzemion pierwszego rzędu z prawej:
+            <input class="form-control" type="number" name="first_row_stirrup_range_right" required='required'
+                   value="1000" min="0" max="15000"
+                   step="5">
+            Rozstaw strzemion pierwszeego rzędu z lewej:
+            <input class="form-control" type="number" name="first_row_stirrup_spacing_left" required='required'
+                   value="120" min="0" max="400"
+                   step="5">
+            Rozstaw strzemion pierwszeego rzędu z prawej:
+            <input class="form-control" type="number" name="first_row_stirrup_spacing_right" required='required'
+                   value="120" min="0" max="400"
+                   step="5">
+            Rozstaw strzemion drugiego rzędu:
+            <input class="form-control" type="number" name="secondary_stirrup_spacing" required='required' value="120"
+                   min="0" max="400"
+                   step="5">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-success">Pobierz DXF</button>
+
+
+    </form>
+
+{% endblock %}
